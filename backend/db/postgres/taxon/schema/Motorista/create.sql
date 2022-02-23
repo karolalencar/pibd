@@ -4,5 +4,5 @@ CREATE TABLE Motorista (
     agencia_bancaria VARCHAR(10),
     conta_bancaria VARCHAR(10),
     banco VARCHAR(50),
-    PRIMARY KEY (cpf),
+    PRIMARY KEY (cpf)
 );
