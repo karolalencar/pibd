@@ -1,6 +1,6 @@
 CREATE TABLE MotoristaCNH (
-    cpf VARCHAR(11),
-    cnh VARCHAR(20),
+    cpf CHAR(11),
+    cnh CHAR(11),
     PRIMARY KEY (cpf, cnh),
     FOREIGN KEY (cpf) REFERENCES Motorista (cpf)
 );
