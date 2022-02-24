@@ -1,9 +1,8 @@
 CREATE Table PeriodoProprietarioPossuiVeiculo(
 	id INT,
-  chassi VARCHAR(17),
-  inicio DATETIME,
-  fim DATETIME,
+  	chassi VARCHAR(17),
+  	inicio TIMESTAMP,
+  	fim TIMESTAMP,
 	PRIMARY KEY(id, chassi, inicio),
-  FOREIGN KEY (id) REFERENCES ProprietarioPossuiVeiculo(id),
-  FOREIGN KEY (chassi) REFERENCES ProprietarioPossuiVeiculo(chassi)
+  	FOREIGN KEY (id, chassi) REFERENCES ProprietarioPossuiVeiculo(id, chassi)
 );
