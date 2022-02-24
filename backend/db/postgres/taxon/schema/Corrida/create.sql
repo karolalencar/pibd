@@ -12,6 +12,7 @@ CREATE TABLE Corrida(
 	fatura_mes VARCHAR(10),
 	fatura_ano CHAR(4),
 	PRIMARY KEY(cpf, chassi, inicia_as),
+	FOREIGN KEY(cpf, chassi) REFERENCES MotoristaHabilitado(cpf, chassi),
 	FOREIGN KEY(agendamento_cnpj, agendamento_efetuado_as) REFERENCES Agendamento(cnpj, efetuado_as),
 	FOREIGN KEY(fatura_cnpj, fatura_mes, fatura_ano) REFERENCES Fatura(cnpj, mes, ano)
 );
