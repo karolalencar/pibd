@@ -1,5 +1,5 @@
 create table AgendamentoParaEmLocal(
-    cnpj VARCHAR(11),
+    cnpj VARCHAR(14),
     efetuado_as TIMESTAMP,
     cep VARCHAR(8), 
     num INT,
