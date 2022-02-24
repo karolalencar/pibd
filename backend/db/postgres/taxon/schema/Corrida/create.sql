@@ -14,5 +14,4 @@ CREATE TABLE Corrida(
 	PRIMARY KEY(cpf, chassi, inicia_as),
 	FOREIGN KEY(agendamento_cnpj, agendamento_efetuado_as) REFERENCES Agendamento(cnpj, efetuado_as),
 	FOREIGN KEY(fatura_cnpj, fatura_mes, fatura_ano) REFERENCES Fatura(cnpj, mes, ano)
-
 );
