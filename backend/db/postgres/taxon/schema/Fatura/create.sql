@@ -1,9 +1,10 @@
 CREATE TABLE Fatura(
-	cnpj CHAR(14),
+	fatura_id serial PRIMARY KEY  -- surrogate PK
+	cnpj CHAR(14) UNIQUE,
     	mes VARCHAR(10),
     	ano CHAR(4),
 	situacao VARCHAR(10) NOT NULL,
-	PRIMARY KEY(cnpj, mes, ano),
+	UNIQUE(cnpj, mes, ano),
 	FOREIGN KEY (cnpj) REFERENCES Conveniada(cnpj),
 	CHECK(situacao IN ('em aberto', 'em atraso', 'quitada'))
 );
