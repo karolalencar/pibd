@@ -197,7 +197,7 @@ create table MotoristaCNH(
     	emitida_em TIMESTAMP NOT NULL, 
     	PRIMARY key (cpf, num_registro),
     	FOREIGN key (cpf) REFERENCES Motorista,
-	CHECK categoria IN ('A', 'B', 'C', 'D', 'E', 'AB', 'AC', 'AD', 'AE')
+	CHECK(categoria IN ('A', 'B', 'C', 'D', 'E', 'AB', 'AC', 'AD', 'AE'))
 );
 CREATE Table PeriodoProprietarioPossuiVeiculo(
 	id INT,
