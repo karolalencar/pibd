@@ -1,6 +1,7 @@
-CREATE TABLE Convenio(
-	cnpj_conveniada CHAR(14),
-    convenio VARCHAR(30) NOT NULL,
-	PRIMARY KEY(cnpj_conveniada, convenio),
-	FOREIGN KEY (cnpj_conveniada) REFERENCES Conveniada(cnpj)
+create table Convenio(
+    cnpj varchar(15),
+    inicio_em TIMESTAMP,
+    termino_em TIMESTAMP NOT NULL,
+    PRIMARY key (cnpj, inicio_em),
+    FOREIGN key (cnpj) REFERENCES Conveniada(cnpj)
 );
