@@ -1,6 +1,9 @@
-CREATE TABLE MotoristaCNH (
-    cpf CHAR(11),
-    cnh CHAR(11),
-    PRIMARY KEY (cpf, cnh),
-    FOREIGN KEY (cpf) REFERENCES Motorista (cpf)
+create table MotoristaCNH(
+    cpf varchar(15),
+    num_registro int,
+    categoria NOT NULL,
+    vencimento_em TIMESTAMP NOT NULL,
+    emitida_em TIMESTAMP NOT NULL, 
+    PRIMARY key (cpf, num_registro),
+    FOREIGN key (cpf) REFERENCES Motorista
 );
