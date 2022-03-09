@@ -189,10 +189,10 @@ CREATE TABLE TelefonePessoa(
 	PRIMARY KEY (id, telefone),
 	FOREIGN KEY (id) REFERENCES Pessoa(id)
 );
-CREATE TABLE MotoristaCNH(
+create table MotoristaCNH(
     cpf varchar(15),
     num_registro int,
-    categoria VARCHAR(2) NOT NULL,
+    categoria VARCHAR(2) NOT NULL CHECK IN ('A', 'B', 'C', 'D', 'E', 'AB', 'AC', 'AD', 'AE'),
     vencimento_em TIMESTAMP NOT NULL,
     emitida_em TIMESTAMP NOT NULL, 
     PRIMARY key (cpf, num_registro),
