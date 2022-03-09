@@ -42,12 +42,12 @@ CREATE TABLE Fisica(
 	FOREIGN KEY (id) REFERENCES Pessoa(id)
 );
 CREATE TABLE Motorista (
-    cpf VARCHAR(11),
-    renach VARCHAR(50),
-    agencia_bancaria VARCHAR(10),
-    conta_bancaria VARCHAR(10),
-    banco VARCHAR(50),
-    PRIMARY KEY (cpf),
+  	cpf VARCHAR(11),
+    	renach VARCHAR(50),
+    	agencia_bancaria VARCHAR(10),
+    	conta_bancaria VARCHAR(10),
+    	banco VARCHAR(50),
+    	PRIMARY KEY (cpf),
 	FOREIGN KEY (cpf) REFERENCES Fisica(cpf)
 );
 CREATE TABLE MotoristaAcessaVeiculo(
@@ -150,29 +150,38 @@ CREATE TABLE Corrida(
 	FOREIGN KEY(agendamento_cnpj, agendamento_efetuado_as) REFERENCES Agendamento(cnpj, efetuado_as),
 	FOREIGN KEY(fatura_cnpj, fatura_mes, fatura_ano) REFERENCES Fatura(cnpj, mes, ano)
 );
-CREATE Table MotoristaContatoEmergencia(
-	cpf VARCHAR(11),
-	contato_emergencia VARCHAR(20),
-	PRIMARY KEY(cpf, contato_emergencia),
-	FOREIGN KEY (cpf) REFERENCES Motorista(cpf)
+CREATE TABLE MotoristaContEmergencia(
+    cpf VARCHAR(15),
+    ddd INT,
+    num_telefone INT,
+    nome VARCHAR(30) NOT NULL,
+    parentesco VARCHAR(20),
+    CEP varchar(9),
+    num int,
+    PRIMARY key (cpf, ddd, num_telefone),
+    FOREIGN key (cpf) REFERENCES Motorista(cpf)
 );
 CREATE TABLE Garagem(
 	chassi VARCHAR(17),
-	garagem VARCHAR(255),
-	PRIMARY KEY (chassi, garagem),
+	cep CHAR(8),
+	num INT,
+	num_vaga INT,
+	PRIMARY KEY (chassi, cep, num),
 	FOREIGN KEY (chassi) REFERENCES Veiculo(chassi)
 );
 CREATE TABLE EnderecoPessoa(
 	id INT,
-	endereco VARCHAR(100),
-	PRIMARY KEY (id, endereco),
+	CEP char(8),
+	num INT,
+	PRIMARY KEY (id, CEP, num),
 	FOREIGN KEY (id) REFERENCES Pessoa(id)
 );
 CREATE TABLE Convenio(
-	cnpj_conveniada CHAR(14),
-    convenio VARCHAR(30) NOT NULL,
-	PRIMARY KEY(cnpj_conveniada, convenio),
-	FOREIGN KEY (cnpj_conveniada) REFERENCES Conveniada(cnpj)
+    cnpj varchar(15),
+    inicio_em TIMESTAMP,
+    termino_em TIMESTAMP NOT NULL,
+    PRIMARY key (cnpj, inicio_em),
+    FOREIGN key (cnpj) REFERENCES Conveniada(cnpj)
 );
 CREATE TABLE TelefonePessoa(
 	id INT,
@@ -180,11 +189,14 @@ CREATE TABLE TelefonePessoa(
 	PRIMARY KEY (id, telefone),
 	FOREIGN KEY (id) REFERENCES Pessoa(id)
 );
-CREATE TABLE MotoristaCNH (
-    cpf CHAR(11),
-    cnh CHAR(11),
-    PRIMARY KEY (cpf, cnh),
-    FOREIGN KEY (cpf) REFERENCES Motorista (cpf)
+CREATE TABLE MotoristaCNH(
+    cpf varchar(15),
+    num_registro int,
+    categoria NOT NULL,
+    vencimento_em TIMESTAMP NOT NULL,
+    emitida_em TIMESTAMP NOT NULL, 
+    PRIMARY key (cpf, num_registro),
+    FOREIGN key (cpf) REFERENCES Motorista
 );
 CREATE Table PeriodoProprietarioPossuiVeiculo(
 	id INT,
