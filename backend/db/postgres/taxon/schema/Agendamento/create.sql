@@ -1,6 +1,7 @@
 create table Agendamento(
+    id SERIAL PRIMARY KEY,
     cnpj VARCHAR(14),
     efetuado_as TIMESTAMP,
-    PRIMARY KEY(cnpj, efetuado_as),
+    UNIQUE(cnpj, efetuado_as),
     FOREIGN KEY(cnpj) REFERENCES Conveniada(cnpj) 
 );
