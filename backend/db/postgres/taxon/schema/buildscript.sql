@@ -121,7 +121,7 @@ CREATE TABLE PassageiroAutorizadoViajaEmAgendamentoPorLocal(
 	num INT,
 	PRIMARY KEY (passageiro_autorizado_cpf, passageiro_autorizado_cnpj, agendamento_cnpj, agendamento_efetuado_as),
 	FOREIGN KEY (passageiro_autorizado_cpf, passageiro_autorizado_cnpj) REFERENCES PassageiroAutorizado(cpf, cnpj),
-	FOREIGN KEY (agendamento_cnpj, agendamento_efetuado_as) REFERENCES Agendamento(cnpj, efetuado_as),
+	FOREIGN KEY (agendamento_id) REFERENCES Agendamento(id),
 	FOREIGN KEY (cep, num) REFERENCES Local(cep, num)
 );
 create table AgendamentoParaEmLocal(
@@ -132,7 +132,7 @@ create table AgendamentoParaEmLocal(
     indice_trecho VARCHAR(255),
     num_passageiros INT,
     PRIMARY KEY (cnpj, efetuado_as, cep, num),
-    FOREIGN KEY (cnpj, efetuado_as) REFERENCES Agendamento(cnpj, efetuado_as),
+    FOREIGN KEY (agendamento_id) REFERENCES Agendamento(id),
     FOREIGN KEY (cep, num) REFERENCES Local(cep, num)
 );
 CREATE TABLE Corrida(
