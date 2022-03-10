@@ -1,11 +1,10 @@
 create table AgendamentoParaEmLocal(
-    cnpj VARCHAR(14),
-    efetuado_as TIMESTAMP,
+    agendamento_id INT,
     cep VARCHAR(8), 
     num INT,
     indice_trecho VARCHAR(255),
     num_passageiros INT,
-    PRIMARY KEY (cnpj, efetuado_as, cep, num),
-    FOREIGN KEY (cnpj, efetuado_as) REFERENCES Agendamento(cnpj, efetuado_as),
+    PRIMARY KEY (agendamento_id, cep, num),
+    FOREIGN KEY (agendamento_id) REFERENCES Agendamento(id),
     FOREIGN KEY (cep, num) REFERENCES Local(cep, num)
 );
