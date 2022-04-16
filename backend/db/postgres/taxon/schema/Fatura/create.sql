@@ -1,8 +1,7 @@
 CREATE TABLE Fatura(
 	id serial PRIMARY KEY,  -- surrogate PK
 	cnpj CHAR(14),
-    	mes VARCHAR(10),
-    	ano CHAR(4),
+    	data_criacao Date, 
 	situacao VARCHAR(10) NOT NULL,
 	UNIQUE(cnpj, mes, ano),
 	FOREIGN KEY (cnpj) REFERENCES Conveniada(cnpj),
