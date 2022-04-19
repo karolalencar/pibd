@@ -6,7 +6,8 @@ create table Local(
 );
 CREATE Table Pessoa(
 	id INT,
-	email VARCHAR(255),
+	email VARCHAR(255) UNIQUE,
+	senha VARCHAR(255),
 	nome VARCHAR(50),
 	PRIMARY KEY(id)
 );
@@ -98,8 +99,7 @@ CREATE TABLE PassageiroAutorizado(
 CREATE TABLE Fatura(
 	id serial PRIMARY KEY,  -- surrogate PK
 	cnpj CHAR(14),
-    	mes VARCHAR(10),
-    	ano CHAR(4),
+    data_criacao Date, 
 	situacao VARCHAR(10) NOT NULL,
 	UNIQUE(cnpj, mes, ano),
 	FOREIGN KEY (cnpj) REFERENCES Conveniada(cnpj),
