@@ -6,22 +6,21 @@ public class User {
     private String password;
     private String role;
 
-
     public User() {
     }
 
-    public User( String name, String email, String password, String role) {
-        this.setName(name);
+    public User(String name, String email, String password, String role) {
+        this.setNome(name);
         this.setEmail(email);
         this.setPassword(password);
         this.setRole(role);
     }
 
-    public void setName(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getName() {
+    public String getNome() {
         return this.nome;
     }
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import br.ufscar.dc.pibd.domain.User;
 
-public class UserDAO extends GenericDAO{
+public class UserDAO extends GenericDAO {
 
     public String getRolebyLogin(String email) {
 
@@ -20,11 +20,11 @@ public class UserDAO extends GenericDAO{
             statementUser.setString(1, email);
             ResultSet resultSetUser = statementUser.executeQuery();
             // Convertendo resultados para a classe interna Cliente
-            
+
             if (resultSetUser.next()) {
                 role = resultSetUser.getString("papel");
             }
-            
+
             resultSetUser.close();
             statementUser.close();
             conn.close();
@@ -32,7 +32,6 @@ public class UserDAO extends GenericDAO{
             throw new RuntimeException(e);
         }
 
-        
         return role;
     }
 
@@ -40,8 +39,8 @@ public class UserDAO extends GenericDAO{
 
         String sqlUser = "SELECT * from pessoa where email = ?";
         String role = "";
-        String nome= "";
-        String password= "";
+        String nome = "";
+        String password = "";
         try {
             // Conectando no banco e realizando consulta
             Connection conn = this.getConnection();
@@ -49,13 +48,13 @@ public class UserDAO extends GenericDAO{
             statementUser.setString(1, email);
             ResultSet resultSetUser = statementUser.executeQuery();
             // Convertendo resultados para a classe interna Cliente
-            
+
             if (resultSetUser.next()) {
                 nome = resultSetUser.getString("nome");
-                password = resultSetUser.getString("password");
+                password = resultSetUser.getString("senha");
                 role = resultSetUser.getString("papel");
             }
-            
+
             resultSetUser.close();
             statementUser.close();
             conn.close();
@@ -65,7 +64,6 @@ public class UserDAO extends GenericDAO{
 
         User user = new User(nome, email, password, role);
 
-        
         return user;
     }
 
@@ -81,19 +79,18 @@ public class UserDAO extends GenericDAO{
             statementUser.setString(2, password);
             ResultSet resultSetUser = statementUser.executeQuery();
             // Convertendo resultados para a classe interna Cliente
-            
+
             if (resultSetUser.next()) {
                 bool = resultSetUser.getBoolean("check_password");
             }
-            
+
             resultSetUser.close();
             statementUser.close();
             conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
-        
+
         return bool;
     }
 
