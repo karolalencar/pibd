@@ -5,10 +5,11 @@ create table Local(
     PRIMARY key(cep,num)
 );
 CREATE Table Pessoa(
-	id INT,
+	id SERIAL,
 	email VARCHAR(255) UNIQUE,
 	senha VARCHAR(255),
 	nome VARCHAR(50),
+	papel VARCHAR(10),
 	PRIMARY KEY(id)
 );
 CREATE Table Veiculo(
