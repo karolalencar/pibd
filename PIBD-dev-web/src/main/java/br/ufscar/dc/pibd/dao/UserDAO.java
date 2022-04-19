@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.ufscar.dc.pibd.domain.User;
+
 public class UserDAO extends GenericDAO{
 
     public String getRolebyLogin(String email) {
 
-        String sqlUser = "SELECT * from users where email = ?";
+        String sqlUser = "SELECT * from pessoa where email = ?";
         String role = "";
         try {
             // Conectando no banco e realizando consulta
@@ -20,7 +22,7 @@ public class UserDAO extends GenericDAO{
             // Convertendo resultados para a classe interna Cliente
             
             if (resultSetUser.next()) {
-                role = resultSetUser.getString("role");
+                role = resultSetUser.getString("papel");
             }
             
             resultSetUser.close();
@@ -32,6 +34,39 @@ public class UserDAO extends GenericDAO{
 
         
         return role;
+    }
+
+    public User getUserbyLogin(String email) {
+
+        String sqlUser = "SELECT * from pessoa where email = ?";
+        String role = "";
+        String nome= "";
+        String password= "";
+        try {
+            // Conectando no banco e realizando consulta
+            Connection conn = this.getConnection();
+            PreparedStatement statementUser = conn.prepareStatement(sqlUser);
+            statementUser.setString(1, email);
+            ResultSet resultSetUser = statementUser.executeQuery();
+            // Convertendo resultados para a classe interna Cliente
+            
+            if (resultSetUser.next()) {
+                nome = resultSetUser.getString("nome");
+                password = resultSetUser.getString("password");
+                role = resultSetUser.getString("papel");
+            }
+            
+            resultSetUser.close();
+            statementUser.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        User user = new User(nome, email, password, role);
+
+        
+        return user;
     }
 
     public Boolean getPassed(String email, String password) {

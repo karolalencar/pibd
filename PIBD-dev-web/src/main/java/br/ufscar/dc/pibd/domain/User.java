@@ -1,33 +1,20 @@
 package br.ufscar.dc.pibd.domain;
 
-public class Client {
-    private String cnpj;
+public class User {
     private String nome;
     private String email;
     private String password;
     private String role;
-    private String setor;
 
 
-    public Client(String cnpj) {
-        this.setCpf(cnpj);
+    public User() {
     }
 
-    public Client(String cpf, String name, String email, String password, String role, String setor) {
-        this.setCpf(cpf);
+    public User( String name, String email, String password, String role) {
         this.setName(name);
         this.setEmail(email);
         this.setPassword(password);
         this.setRole(role);
-        this.setSetor(setor);
-    }
-
-    public void setCpf(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getCpf() {
-        return this.cnpj;
     }
 
     public void setName(String nome) {
@@ -62,11 +49,4 @@ public class Client {
         return this.role;
     }
 
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
-
-    public String getSetor() {
-        return this.setor;
-    }
 }
