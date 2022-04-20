@@ -14,13 +14,13 @@
 
 	
 		<body>
-            <p>Total recebido: ${requestScope.totalRecebido}</p>
-            <p>Corridas Totais: ${requestScope.corridasTotais}</p>
+            <p align="center" >Total recebido: ${requestScope.totalRecebido}</p>
+            <p align="center" >Corridas Totais: ${requestScope.corridasTotais}</p>
             
 			<div align="center">
 				<table border="1">
 					<caption>
-						<fmt:message key="professional_list"/>
+						Lista de Corridas
 					</caption>
 					<tr>
 						<th>ID</th>
@@ -29,18 +29,18 @@
 						<th>Data de início</th>
 						<th>Data de fim</th>
 					</tr>
-					<c:forEach var="corrida" items="${requestScope.corridas}">
-						<a href="">
-                            <tr>
-                                <td>#${corrida.id}</td>
-                                <td>${corrida.valor * 0.6}</td>
-                                
-                                <td>${corrida.valor}</td>
-                                <td>${corrida.inicia_as}</td>
-                                <td>${corrida.termina_as}</td>
-                            </tr>
-                        </a>
-					</c:forEach>
+					<c:if test="${requestScope.corridas != 'NULL' }">
+						<c:forEach var="corrida" items="${requestScope.corridas}">
+								<tr>
+									<td><a href="/motoristas/apresentaDetalhamentoCorrida/">${corrida.id}</a></td>
+									<td>${corrida.valor * 0.6}</td>
+									
+									<td>${corrida.valor}</td>
+									<td>${corrida.iniciaAs}</td>
+									<td>${corrida.terminaAs}</td>
+								</tr>
+						</c:forEach>
+					</c:if>
 				</table>
 			</div>
 		</body>

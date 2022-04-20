@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;*/
 import java.time.LocalDate;
 
+
 import br.ufscar.dc.pibd.domain.Motorista;
 
 
@@ -49,7 +50,6 @@ public class MotoristaDAO extends GenericDAO {
     }
 
     public Double totalValorMotoristaMesEAno(String cpf, Integer ano, Integer mes) {
-        
         String sqlMotorista = "SELECT recupera_lucro_total(?, ?, ?)";
         Double total = 0.0;
         try {
@@ -57,14 +57,14 @@ public class MotoristaDAO extends GenericDAO {
             Connection conn = this.getConnection();
             PreparedStatement statementMotorista = conn.prepareStatement(sqlMotorista);
             statementMotorista.setString(1, cpf);
-            statementMotorista.setInt(2, ano);
-            statementMotorista.setInt(3, mes);
+            statementMotorista.setInt(2, mes);
+            statementMotorista.setInt(3, ano);
         
             ResultSet resultSetMotorista = statementMotorista.executeQuery();
 
             // Convertendo resultados para a classe interna Cliente
             if (resultSetMotorista.next()) {
-                total = resultSetMotorista.getDouble("recupera_lucro_total");
+                total = resultSetMotorista.getDouble(1);
             }       
            
             resultSetMotorista.close();
@@ -87,14 +87,14 @@ public class MotoristaDAO extends GenericDAO {
             Connection conn = this.getConnection();
             PreparedStatement statementMotorista = conn.prepareStatement(sqlMotorista);
             statementMotorista.setString(1, cpf);
-            statementMotorista.setInt(2, ano);
-            statementMotorista.setInt(3, mes);
+            statementMotorista.setInt(2, mes);
+            statementMotorista.setInt(3, ano);
         
             ResultSet resultSetMotorista = statementMotorista.executeQuery();
 
             // Convertendo resultados para a classe interna Cliente
             if (resultSetMotorista.next()) {
-                total = resultSetMotorista.getInt("recupera_corridas_totais");
+                total = resultSetMotorista.getInt(1);
             }       
            
             resultSetMotorista.close();

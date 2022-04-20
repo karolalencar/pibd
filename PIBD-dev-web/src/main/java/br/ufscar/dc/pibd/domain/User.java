@@ -5,17 +5,17 @@ public class User {
     private String nome;
     private String email;
     private String password;
-    private String role;
+    private String papel;
 
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, String role) {
+    public User(Long id, String name, String email, String password, String papel) {
         this.setId(id);
         this.setNome(name);
         this.setEmail(email);
         this.setPassword(password);
-        this.setRole(role);
+        this.setPapel(papel);
     }
 
     public void setNome(String nome) {
@@ -42,12 +42,12 @@ public class User {
         return this.password;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPapel(String papel) {
+        this.papel = papel;
     }
 
-    public String getRole() {
-        return this.role;
+    public String getPapel() {
+        return this.papel;
     }
 
     public void setId(Long id) {

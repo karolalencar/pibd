@@ -71,7 +71,7 @@ public class UserDAO extends GenericDAO {
 
     public Boolean getPassed(String email, String password) {
 
-        String sqlUser = "Select check_password(?, ?);";
+        String sqlUser = "Select check_password(?, ?)";
         Boolean bool = false;
         try {
             // Conectando no banco e realizando consulta
@@ -81,9 +81,9 @@ public class UserDAO extends GenericDAO {
             statementUser.setString(2, password);
             ResultSet resultSetUser = statementUser.executeQuery();
             // Convertendo resultados para a classe interna Cliente
-
+            
             if (resultSetUser.next()) {
-                bool = resultSetUser.getBoolean("check_password");
+                bool = resultSetUser.getBoolean(1);
             }
 
             resultSetUser.close();

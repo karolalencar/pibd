@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/motoristas/*")
 public class MotoristaController  extends HttpServlet{
@@ -26,6 +27,7 @@ public class MotoristaController  extends HttpServlet{
 	@Override
         public void init() {
                 dao = new MotoristaDAO();
+                daoCorrida = new CorridaDAO();
         }
 	
 	@Override
@@ -48,6 +50,7 @@ public class MotoristaController  extends HttpServlet{
                     break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
+            System.out.print("cheguei no exception");
             throw new ServletException(e);
         }
 
@@ -59,6 +62,9 @@ public class MotoristaController  extends HttpServlet{
         Motorista motoristaFisica = dao.getFisicaFromMotById(userLogged.getId()); // Recupera a pessoa fisica de motorista
         Integer year = (Integer) request.getAttribute("year");
         Integer month = (Integer) request.getAttribute("mes");
+        List<Corrida> corridas = new ArrayList<>();
+        Double totalRecebido = 0.0;
+        Integer corridasTotais = 0;
 
         if(year == null){
             year = Calendar.getInstance().get(Calendar.YEAR);
@@ -66,11 +72,12 @@ public class MotoristaController  extends HttpServlet{
         if(month == null){
             month = Calendar.getInstance().get(Calendar.MONTH);
         }
+        //System.out.print("cpf="+motoristaFisica.getCpf()+"\nano="+year+"\nmes="+month);
+        corridas = daoCorrida.getAllCorridasByMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
+        totalRecebido = dao.totalValorMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
+        corridasTotais = dao.totalCorridasMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
 
-        List<Corrida> corridas = daoCorrida.getAllCorridasByMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
-        Double totalRecebido = dao.totalValorMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
-        Integer corridasTotais = dao.totalCorridasMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
-
+        //System.out.print("totalRecebido: "+ totalRecebido +"\nCorridas Totais: "+ corridasTotais);
         request.setAttribute("corridas", corridas);
         request.setAttribute("totalRecebido", totalRecebido);
         request.setAttribute("corridasTotais", corridasTotais);
