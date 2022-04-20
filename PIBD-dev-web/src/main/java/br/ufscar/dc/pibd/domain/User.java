@@ -4,7 +4,7 @@ public class User {
     private String nome;
     private String email;
     private String password;
-    private String role;
+    private String papel;
 
     public User() {
     }
@@ -13,7 +13,7 @@ public class User {
         this.setNome(name);
         this.setEmail(email);
         this.setPassword(password);
-        this.setRole(role);
+        this.setPapel(role);
     }
 
     public void setNome(String nome) {
@@ -40,12 +40,12 @@ public class User {
         return this.password;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPapel(String papel) {
+        this.papel = papel;
     }
 
-    public String getRole() {
-        return this.role;
+    public String getPapel() {
+        return this.papel;
     }
 
 }
