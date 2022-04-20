@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.ufscar.dc.pibd.util.Error;
 
 @WebServlet(name="Index", urlPatterns = {"/index*"})
 public class IndexController extends HttpServlet {

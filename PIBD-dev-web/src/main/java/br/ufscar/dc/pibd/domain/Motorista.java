@@ -16,8 +16,15 @@ public class Motorista {
     private String password;
     private String role;
 
+    public Motorista(String cpf, LocalDate dataNasc, String estadoCivil, String rg) {
+        this.setCpf(cpf);
+    }
+
     public Motorista(String cpf) {
         this.setCpf(cpf);
+        this.setDataNasc(dataNasc);
+        this.setEstadoCivil(estadoCivil);
+        this.setRg(rg);
     }
 
     public Motorista(String cpf, String name, String email, String password, String role, String renach, String agenciaBancaria, String contaBancaria, String banco, String rg, String estadoCivil, LocalDate dataNasc ) {
@@ -26,6 +33,13 @@ public class Motorista {
         this.setEmail(email);
         this.setPassword(password);
         this.setRole(role);
+        this.setRenach(renach);
+        this.setAgenciaBancaria(agenciaBancaria);
+        this.setContaBancaria(contaBancaria);
+        this.setBanco(banco);
+        this.setRg(rg);
+        this.setEstadoCivil(estadoCivil);
+        this.setDataNasc(dataNasc);
     }
 
     public void setCpf(String cpf) {
