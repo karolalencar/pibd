@@ -17,7 +17,7 @@
 				<div class="hello">
 				<c:if test="${sessionScope.usuarioLogado.papel == 'MOT' }">
 					<p>Seja bem-vindo(a) ${sessionScope.usuarioLogado.nome}!</p>
-                    <a href="">Corridas Feitas</a>
+                    <a href="motoristas/corridas">Corridas Feitas</a>
                     <a href="">Corridas Pendentes</a>
                     <a href="">Carros</a>
 				</c:if>

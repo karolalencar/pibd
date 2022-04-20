@@ -1,6 +1,7 @@
 package br.ufscar.dc.pibd.domain;
 
 public class User {
+    private Long id;
     private String nome;
     private String email;
     private String password;
@@ -9,11 +10,13 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, String role) {
+    public User(Long id, String name, String email, String password, String papel) {
+        this.setId(id);
         this.setNome(name);
         this.setEmail(email);
         this.setPassword(password);
-        this.setPapel(role);
+        this.setPapel(papel);
+
     }
 
     public void setNome(String nome) {
@@ -46,6 +49,16 @@ public class User {
 
     public String getPapel() {
         return this.papel;
+
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+
     }
 
 }

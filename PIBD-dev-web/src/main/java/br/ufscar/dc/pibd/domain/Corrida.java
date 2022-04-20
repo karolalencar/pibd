@@ -2,6 +2,7 @@ package br.ufscar.dc.pibd.domain;
 import java.time.LocalDate;
 
 public class Corrida{
+    private Integer id;
     private String cpf;
     private String chassi;
     private LocalDate iniciaAs;
@@ -12,12 +13,19 @@ public class Corrida{
     private Long agendamentoId;
     private Long faturaId;
 
+    public Corrida(Integer id, Double valor, LocalDate iniciaAs, LocalDate terminaAs) {
+        this.setId(id);
+        this.setValor(valor);
+        this.setIniciaAs(iniciaAs);
+        this.setTerminaAs(terminaAs);
+    }
 
     public Corrida(String cpf) {
         this.setCpf(cpf);
     }
 
-    public Corrida(String cpf, String chassi, LocalDate iniciaAs, LocalDate terminaAs, Double valor, String iniciaEm, String terminaEm, Long agendamentoId, Long faturaId) {
+    public Corrida(Integer id, String cpf, String chassi, LocalDate iniciaAs, LocalDate terminaAs, Double valor, String iniciaEm, String terminaEm, Long agendamentoId, Long faturaId) {
+        this.setId(id);
         this.setCpf(cpf);
         this.setChassi(chassi);
         this.setIniciaAs(iniciaAs);
@@ -98,6 +106,14 @@ public class Corrida{
 
     public Long getFaturaId() {
         return faturaId;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     

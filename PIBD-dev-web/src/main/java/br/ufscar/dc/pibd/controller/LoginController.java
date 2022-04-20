@@ -41,7 +41,7 @@ public class LoginController extends HttpServlet {
                 UserDAO daoUser = new UserDAO();
                 User user = daoUser.getUserbyLogin(login);
                 if (user != null) {
-                    if (daoUser.getPassed(user.getEmail(), user.getPassword())) {
+                    if (daoUser.getPassed(login, password)) {
                         request.getSession().setAttribute("usuarioLogado", user);
 
                         String URL = "/home.jsp";

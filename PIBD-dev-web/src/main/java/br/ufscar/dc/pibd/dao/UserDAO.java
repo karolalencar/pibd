@@ -41,6 +41,7 @@ public class UserDAO extends GenericDAO {
         String role = "";
         String nome = "";
         String password = "";
+        Long id = 0L;
         try {
             // Conectando no banco e realizando consulta
             Connection conn = this.getConnection();
@@ -50,6 +51,7 @@ public class UserDAO extends GenericDAO {
             // Convertendo resultados para a classe interna Cliente
 
             if (resultSetUser.next()) {
+                id = resultSetUser.getLong("id");
                 nome = resultSetUser.getString("nome");
                 password = resultSetUser.getString("senha");
                 role = resultSetUser.getString("papel");
@@ -62,14 +64,14 @@ public class UserDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
 
-        User user = new User(nome, email, password, role);
+        User user = new User(id, nome, email, password, role);
 
         return user;
     }
 
     public Boolean getPassed(String email, String password) {
 
-        String sqlUser = "Select check_password(?, ?);";
+        String sqlUser = "Select check_password(?, ?)";
         Boolean bool = false;
         try {
             // Conectando no banco e realizando consulta
@@ -79,9 +81,9 @@ public class UserDAO extends GenericDAO {
             statementUser.setString(2, password);
             ResultSet resultSetUser = statementUser.executeQuery();
             // Convertendo resultados para a classe interna Cliente
-
+            
             if (resultSetUser.next()) {
-                bool = resultSetUser.getBoolean("check_password");
+                bool = resultSetUser.getBoolean(1);
             }
 
             resultSetUser.close();
