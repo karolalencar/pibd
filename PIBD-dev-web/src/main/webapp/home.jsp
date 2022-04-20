@@ -15,8 +15,27 @@
 	    <body>
 			<div >				
 				<div class="hello">
-				<c:if test="${sessionScope.usuarioLogado != null }">
-					${sessionScope.usuarioLogado.nome}!
+				<c:if test="${sessionScope.usuarioLogado.papel == 'MOT' }">
+					<p>Seja bem-vindo(a) ${sessionScope.usuarioLogado.nome}!</p>
+                    <a href="">Corridas Feitas</a>
+                    <a href="">Corridas Pendentes</a>
+                    <a href="">Carros</a>
+				</c:if>
+
+                <c:if test="${sessionScope.usuarioLogado.papel == 'CONV' }">
+					<p>Seja bem-vindo(a) ${sessionScope.usuarioLogado.nome}!</p>
+                    <a href="">Faturas</a>
+                    <a href="">Corridas Pendentes</a>
+                    <a href="">Agendar Corridas</a>
+                    <a href="">Passageiros</a>
+				</c:if>
+
+                <c:if test="${sessionScope.usuarioLogado.papel == 'ADMIN' }">
+					<p>Seja bem-vindo(a) ${sessionScope.usuarioLogado.nome}!</p>
+                    <a href="">Motoristas</a>
+                    <a href="">Conveniadas</a>
+                    <a href="">Agendamentos</a>
+                    <a href="">Corridas</a>
 				</c:if>
 				</div>
 				<br>
