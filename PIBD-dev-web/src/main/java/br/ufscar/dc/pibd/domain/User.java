@@ -16,6 +16,7 @@ public class User {
         this.setEmail(email);
         this.setPassword(password);
         this.setPapel(papel);
+
     }
 
     public void setNome(String nome) {
@@ -48,6 +49,7 @@ public class User {
 
     public String getPapel() {
         return this.papel;
+
     }
 
     public void setId(Long id) {
@@ -56,6 +58,7 @@ public class User {
 
     public Long getId() {
         return id;
+
     }
 
 }
