@@ -85,7 +85,6 @@ public class ClientController extends HttpServlet {
 
         try {
             Date data_criacao = sdf.parse(mesStr);
-            System.out.println(data_criacao.getTime());
             Fatura fatura = daoFatura.getFaturaByCnpjDataCriacao(cnpj, data_criacao.getTime());
             request.setAttribute("valor_total", daoFatura.getValorFaturaPorId(fatura.getId()));
             request.setAttribute("num_corridas", daoFatura.getNumCorridasFaturaPorId(fatura.getId()));
@@ -115,7 +114,6 @@ public class ClientController extends HttpServlet {
             throws ServletException, IOException {
 
         Integer idCorrida = Integer.parseInt(request.getParameter("id"));
-        System.out.println(idCorrida);
         Corrida corrida = daoCorrida.getCorridaById(idCorrida);
         request.setAttribute("corrida", corrida);
 

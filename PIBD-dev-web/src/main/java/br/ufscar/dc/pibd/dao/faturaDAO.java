@@ -18,12 +18,8 @@ import br.ufscar.dc.pibd.domain.Corrida;
 
 public class faturaDAO extends GenericDAO {
     public Fatura getFaturaByCnpjDataCriacao(String cnpj, long data_criacao) {
-        System.out.println("Entrou");
         Fatura fatura = null;
         String sql = "SELECT * FROM get_fatura(?, ?)";
-        System.out.println("Entrou na func");
-        System.out.println(cnpj);
-        System.out.println(data_criacao);
         try {
             // Conectando no banco e realizando consulta
             Connection conn = this.getConnection();
@@ -74,7 +70,6 @@ public class faturaDAO extends GenericDAO {
                 Integer id_ = resultSet.getInt("id");
                 LocalDate iniciaAs = LocalDate.parse(resultSet.getDate("inicia_as").toString());
                 LocalDate terminaAs = LocalDate.parse(resultSet.getDate("termina_as").toString());
-                System.out.print("id = " + id_);
                 Corrida corrida = new Corrida(id, valor, iniciaAs, terminaAs);
                 corridas.add(corrida);
             }
