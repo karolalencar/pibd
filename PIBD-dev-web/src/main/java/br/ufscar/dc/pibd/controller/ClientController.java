@@ -7,6 +7,7 @@ import br.ufscar.dc.pibd.domain.Client;
 import br.ufscar.dc.pibd.domain.User;
 import br.ufscar.dc.pibd.domain.Corrida;
 import br.ufscar.dc.pibd.domain.Fatura;
+import br.ufscar.dc.pibd.domain.Passageiro;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -117,6 +118,10 @@ public class ClientController extends HttpServlet {
         Corrida corrida = daoCorrida.getCorridaById(idCorrida);
         request.setAttribute("corrida", corrida);
 
+        List<Passageiro> passageiros = daoCorrida.get_passageiros_locais(corrida.getAgendamentoId());
+
+        System.out.println(passageiros);
+        request.setAttribute("passageiros", passageiros);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/client/detalheCorrida.jsp");
         dispatcher.forward(request, response);
 

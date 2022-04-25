@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendoc</title> 
+    <title>taxi</title> 
 
     <%
         String contextPath = request.getContextPath().replace("/", "");
@@ -24,7 +24,7 @@
         <main>
             <div>
                 <p>Corrida = ${requestScope.corrida.id}</p>
-                
+                <p>Nome motorista = ${requestScope.corrida.nome_motorista}</p>
                 <p>Valor total: <label>${requestScope.corrida.valor}</label></p>
                 <p>Inicia às:<label> ${requestScope.corrida.iniciaAs}</label></p>
                 <p>Termina às:<label> ${requestScope.corrida.terminaAs}</label></p>
@@ -33,23 +33,27 @@
                       
             </div>
             
-            <!--
+            
            <table border="1">
-			<caption>Corridas</caption>
+			<caption>Passageiros</caption>
 			<tr>
-                <th>Id</th>
+                <th>Cpf</th>
 				<th>Nome</th>
-				<th>Local</th>
+				<th>CEP</th>
+                <th>num</th>
+                
 			</tr>
 			<c:forEach var="passageiro" items="${requestScope.passageiros}">
 				<tr>    
-					<td>${passageiro.id}</td>
+					<td>${passageiro.cpf}</td>
 					<td>${passageiro.nome}</td>
-					<td>${passageiro.local}</td>
+					<td>${passageiro.cep}</td>
+                    <td>${passageiro.num}</td>
+                    
 				</tr>
 			</c:forEach>
 		</table>
-       --> 
+       
         </main>
     </div>
 </body>
