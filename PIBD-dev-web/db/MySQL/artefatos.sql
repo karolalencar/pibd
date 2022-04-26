@@ -68,3 +68,101 @@ END;
 $func$;
 
 /* Fim Artefatos Áquila */
+
+/* Começo artefatos Gustavo Jodar */
+
+CREATE OR REPLACE FUNCTION insert_fatura(cnpj character(14),data_criacao Date, situacao character varying)
+  RETURNS void AS
+  $BODY$
+      BEGIN
+        INSERT INTO fatura(cnpj, data_criacao, situacao)
+        VALUES(cnpj, data_criacao, situacao);
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql' VOLATILE
+  COST 100;
+
+
+CREATE OR REPLACE FUNCTION get_fatura(cnpj_ character(14),data_criacao_ Date)
+  RETURNS setof fatura AS
+  $BODY$
+      BEGIN
+        RETURN QUERY SELECT * FROM fatura WHERE cnpj=cnpj_ AND data_criacao=data_criacao_;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql' VOLATILE
+  COST 100;
+
+CREATE OR REPLACE FUNCTION confere_fatura() 
+	RETURNS trigger AS $$
+	DECLARE
+	  cur fatura%ROWTYPE;
+	  current_date Date;
+	BEGIN
+	  FOR cur in 
+	  	SELECT * FROM fatura WHERE (situacao = 'em aberto')
+	  LOOP
+	  	IF current_date >= cur.data_criacao+ integer '14' THEN
+			UPDATE fatura SET situacao='em atraso' WHERE cnpj=cur.cnpj AND data_criacao=cur.data_criacao;
+	  	END IF;
+		END LOOP;
+	  RETURN NEW;
+	END;
+	$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_pagamentos
+BEFORE INSERT ON fatura 
+FOR EACH ROW EXECUTE PROCEDURE confere_fatura();
+
+CREATE OR REPLACE FUNCTION get_cnpj_conveniada(integer) RETURNS char(16)
+    AS 'select cnpj from juridica where juridica.id = $1;'
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT;
+
+CREATE OR REPLACE FUNCTION total_valor_corridas_fatura(integer) RETURNS real
+    AS 'select sum(valor) from corrida where fatura_id = $1'
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT;
+
+CREATE OR REPLACE FUNCTION num_corridas_fatura(integer) RETURNS bigint
+    AS 'select count(*) from corrida where fatura_id = $1'
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT;
+
+CREATE OR REPLACE FUNCTION get_corridas_fatura(id_ integer)
+  RETURNS setof corrida AS
+  $BODY$
+      BEGIN
+        RETURN QUERY SELECT * FROM corrida WHERE fatura_id=id_;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql' VOLATILE
+  COST 100;
+
+CREATE OR REPLACE FUNCTION get_corridas_por_id(id_ integer)
+  RETURNS setof corrida AS
+  $BODY$
+      BEGIN
+        RETURN QUERY SELECT * FROM corrida WHERE corrida.id=id_;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql' VOLATILE
+  COST 100;
+
+create or replace view locais as select * from local
+
+CREATE OR REPLACE FUNCTION get_passageiros_e_locais_por_agendamento(id_ integer)
+  RETURNS setof PassageiroAutorizadoViajaEmAgendamentoPorLocal AS
+  $BODY$
+      BEGIN
+        RETURN QUERY SELECT * FROM PassageiroAutorizadoViajaEmAgendamentoPorLocal
+			WHERE agendamento_id=id_;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql' VOLATILE
+  COST 100;
+
+/* Fim artefatos Gustavo Jodar */
