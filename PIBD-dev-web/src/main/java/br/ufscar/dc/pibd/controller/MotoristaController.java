@@ -108,7 +108,7 @@ public class MotoristaController extends HttpServlet {
             throws ServletException, IOException {
 
         System.out.print(request.getParameter("id"));
-        Integer idCorrida = Integer.parseInt(request.getParameter("id"));
+        Long idCorrida = Long.parseLong(request.getParameter("id"));
         Corrida corrida = daoCorrida.getCorridaById(idCorrida);
         request.setAttribute("corrida", corrida);
 

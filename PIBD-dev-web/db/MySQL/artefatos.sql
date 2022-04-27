@@ -2,7 +2,7 @@
 
 CREATE VIEW Pessoa_login AS SELECT email, senha FROM Pessoa;
 
-REATE FUNCTION check_password(uname TEXT, pass TEXT)
+CREATE FUNCTION check_password(uname TEXT, pass TEXT)
 RETURNS BOOLEAN AS'
 DECLARE passed BOOLEAN;
 BEGIN
@@ -154,7 +154,7 @@ CREATE OR REPLACE FUNCTION get_corridas_por_id(id_ bigint)
   LANGUAGE 'plpgsql' VOLATILE
   COST 100;
 
-create or replace view locais as select * from local
+create or replace view locais as select * from local;
 
 CREATE OR REPLACE FUNCTION get_passageiros_e_locais_por_agendamento(id_ BIGINT)
   RETURNS setof PassageiroAutorizadoViajaEmAgendamentoPorLocal AS
@@ -178,8 +178,7 @@ CREATE OR REPLACE FUNCTION cria_fatura()
 	  LOOP
 	  	IF EXTRACT(DAY FROM current_date) = integer '27' THEN
 			IF cur.data_criacao < current_date THEN
-				insert into fatura (cnpj, data_criacao, situacao) values
-					(NEW.cnpj, current_date, 'em aberto') ;
+				insert into fatura (cnpj, data_criacao, situacao) values (NEW.cnpj, current_date, 'em aberto');
 	  		END IF;
 		END IF;
 		END LOOP;
