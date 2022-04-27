@@ -3,7 +3,6 @@ CREATE TABLE Fatura(
 	cnpj CHAR(14),
     	data_criacao Date, 
 	situacao VARCHAR(10) NOT NULL,
-	UNIQUE(data_criacao),
 	FOREIGN KEY (cnpj) REFERENCES Conveniada(cnpj),
 	CHECK(situacao IN ('em aberto', 'em atraso', 'quitada'))
 );

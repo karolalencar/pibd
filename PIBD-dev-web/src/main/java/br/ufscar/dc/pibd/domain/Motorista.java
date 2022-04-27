@@ -27,7 +27,9 @@ public class Motorista {
         this.setRg(rg);
     }
 
-    public Motorista(String cpf, String name, String email, String password, String role, String renach, String agenciaBancaria, String contaBancaria, String banco, String rg, String estadoCivil, LocalDate dataNasc ) {
+    public Motorista(String cpf, String name, String email, String password, String role, String renach,
+            String agenciaBancaria, String contaBancaria, String banco, String rg, String estadoCivil,
+            LocalDate dataNasc) {
         this.setCpf(cpf);
         this.setName(name);
         this.setEmail(email);
@@ -40,6 +42,11 @@ public class Motorista {
         this.setRg(rg);
         this.setEstadoCivil(estadoCivil);
         this.setDataNasc(dataNasc);
+    }
+
+    public Motorista(String cpf, String nome) {
+        this.cpf = cpf;
+        this.name = nome;
     }
 
     public void setCpf(String cpf) {
@@ -137,5 +144,5 @@ public class Motorista {
     public void setDataNasc(LocalDate dataNasc) {
         this.dataNasc = dataNasc;
     }
-    
+
 }

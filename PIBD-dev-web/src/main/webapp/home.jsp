@@ -7,6 +7,10 @@
 <html>
 	    <head>
 	        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <%
+        String contextPath = request.getContextPath().replace("/", "");
+    %>
 	        <title>
                 taxi
 	        </title>
@@ -24,7 +28,7 @@
 
                 <c:if test="${sessionScope.usuarioLogado.papel == 'CONV' }">
 					<p>Seja bem-vindo(a) ${sessionScope.usuarioLogado.nome}!</p>
-                    <a href="">Faturas</a>
+                    <a href="/<%= contextPath%>/clients/faturaMes">Faturas</a>
                     <a href="">Corridas Pendentes</a>
                     <a href="">Agendar Corridas</a>
                     <a href="">Passageiros</a>
