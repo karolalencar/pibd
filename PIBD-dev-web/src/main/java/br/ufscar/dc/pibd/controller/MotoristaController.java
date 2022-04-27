@@ -5,6 +5,7 @@ import br.ufscar.dc.pibd.dao.CorridaDAO;
 import br.ufscar.dc.pibd.domain.Motorista;
 import br.ufscar.dc.pibd.domain.User;
 import br.ufscar.dc.pibd.domain.Corrida;
+import br.ufscar.dc.pibd.domain.Passageiro;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -48,6 +49,9 @@ public class MotoristaController extends HttpServlet {
             switch (action) {
                 case "/corridas":
                     apresentaCorridasFeitas(request, response);
+                    break;
+                case "/apresentaCorridaDetalhe":
+                    apresentaDetalheCorrida(request, response);
                     break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
@@ -99,4 +103,23 @@ public class MotoristaController extends HttpServlet {
 
         dispatcher.forward(request, response);
     }
+
+    private void apresentaDetalheCorrida(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        System.out.print(request.getParameter("id"));
+        Integer idCorrida = Integer.parseInt(request.getParameter("id"));
+        Corrida corrida = daoCorrida.getCorridaById(idCorrida);
+        request.setAttribute("corrida", corrida);
+
+        List<Passageiro> passageiros = daoCorrida.get_passageiros_locais(corrida.getAgendamentoId());
+
+        System.out.println(passageiros);
+        request.setAttribute("passageiros", passageiros);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/motorista/detalheCorrida.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
+ 
 }
