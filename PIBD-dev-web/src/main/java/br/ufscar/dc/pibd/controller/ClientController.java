@@ -79,7 +79,7 @@ public class ClientController extends HttpServlet {
         User userLogged = (User) request.getSession().getAttribute("usuarioLogado");
         request.setAttribute("usuarioLogado", userLogged);
 
-        String cnpj = dao.getCnpjById((int) (long) userLogged.getId());
+        String cnpj = dao.getCnpjById(userLogged.getId());
         String mesStr = request.getParameter("mes");
         mesStr = "2020-" + mesStr + "-30";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -114,7 +114,7 @@ public class ClientController extends HttpServlet {
     private void apresentaDetalheCorrida(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Integer idCorrida = Integer.parseInt(request.getParameter("id"));
+        Long idCorrida = Long.parseLong(request.getParameter("id"));
         Corrida corrida = daoCorrida.getCorridaById(idCorrida);
         request.setAttribute("corrida", corrida);
 

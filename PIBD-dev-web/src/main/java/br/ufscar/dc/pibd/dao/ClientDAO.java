@@ -13,14 +13,14 @@ import br.ufscar.dc.pibd.domain.Client;
 import br.ufscar.dc.pibd.domain.Corrida;
 
 public class ClientDAO extends GenericDAO {
-    public String getCnpjById(Integer id) {
+    public String getCnpjById(Long id) {
         String cnpj = null;
         String sql = "SELECT * FROM get_cnpj_conveniada(?)";
         try {
             // Conectando no banco e realizando consulta
             Connection conn = this.getConnection();
             PreparedStatement statementFatura = conn.prepareStatement(sql);
-            statementFatura.setInt(1, id);
+            statementFatura.setLong(1, id);
 
             ResultSet resultSetFatura = statementFatura.executeQuery();
 

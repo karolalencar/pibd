@@ -87,7 +87,7 @@ CREATE OR REPLACE FUNCTION get_fatura(cnpj_ character(14),data_criacao_ Date)
   RETURNS setof fatura AS
   $BODY$
       BEGIN
-        RETURN QUERY SELECT * FROM fatura WHERE cnpj=cnpj_ AND data_criacao=data_criacao_;
+        RETURN QUERY SELECT * FROM fatura WHERE cnpj=cnpj_ AND EXTRACT(MONTH FROM data_criacao)= EXTRACT(MONTH FROM data_criacao_);
       END;
   $BODY$
   LANGUAGE 'plpgsql' VOLATILE
@@ -114,25 +114,27 @@ CREATE TRIGGER check_pagamentos
 BEFORE INSERT ON fatura 
 FOR EACH ROW EXECUTE PROCEDURE confere_fatura();
 
-CREATE OR REPLACE FUNCTION get_cnpj_conveniada(integer) RETURNS char(16)
+
+
+CREATE OR REPLACE FUNCTION get_cnpj_conveniada(bigint) RETURNS char(16)
     AS 'select cnpj from juridica where juridica.id = $1;'
     LANGUAGE SQL
     IMMUTABLE
     RETURNS NULL ON NULL INPUT;
 
-CREATE OR REPLACE FUNCTION total_valor_corridas_fatura(integer) RETURNS real
+CREATE OR REPLACE FUNCTION total_valor_corridas_fatura(bigint) RETURNS real
     AS 'select sum(valor) from corrida where fatura_id = $1'
     LANGUAGE SQL
     IMMUTABLE
     RETURNS NULL ON NULL INPUT;
 
-CREATE OR REPLACE FUNCTION num_corridas_fatura(integer) RETURNS bigint
+CREATE OR REPLACE FUNCTION num_corridas_fatura(bigint) RETURNS bigint
     AS 'select count(*) from corrida where fatura_id = $1'
     LANGUAGE SQL
     IMMUTABLE
     RETURNS NULL ON NULL INPUT;
 
-CREATE OR REPLACE FUNCTION get_corridas_fatura(id_ integer)
+CREATE OR REPLACE FUNCTION get_corridas_fatura(id_ bigint)
   RETURNS setof corrida AS
   $BODY$
       BEGIN
@@ -142,7 +144,7 @@ CREATE OR REPLACE FUNCTION get_corridas_fatura(id_ integer)
   LANGUAGE 'plpgsql' VOLATILE
   COST 100;
 
-CREATE OR REPLACE FUNCTION get_corridas_por_id(id_ integer)
+CREATE OR REPLACE FUNCTION get_corridas_por_id(id_ bigint)
   RETURNS setof corrida AS
   $BODY$
       BEGIN
@@ -164,5 +166,30 @@ CREATE OR REPLACE FUNCTION get_passageiros_e_locais_por_agendamento(id_ BIGINT)
   $BODY$
   LANGUAGE 'plpgsql' VOLATILE
   COST 100;
+
+CREATE OR REPLACE FUNCTION cria_fatura() 
+	RETURNS trigger AS $$
+	DECLARE
+	  cur fatura%ROWTYPE;
+	  current_date Date;
+	BEGIN
+	  FOR cur in 
+	  	SELECT * FROM fatura f WHERE f.cnpj = NEW.cnpj ORDER BY id DESC LIMIT 1
+	  LOOP
+	  	IF EXTRACT(DAY FROM current_date) = integer '27' THEN
+			IF cur.data_criacao < current_date THEN
+				insert into fatura (cnpj, data_criacao, situacao) values
+					(NEW.cnpj, current_date, 'em aberto') ;
+	  		END IF;
+		END IF;
+		END LOOP;
+	  RETURN NEW;
+	END;
+	$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_nova_fatura
+BEFORE INSERT ON agendamento 
+FOR EACH ROW EXECUTE PROCEDURE cria_fatura();
+
 
 /* Fim artefatos Gustavo Jodar */

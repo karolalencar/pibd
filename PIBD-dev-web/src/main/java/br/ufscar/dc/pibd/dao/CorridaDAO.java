@@ -17,7 +17,6 @@ public class CorridaDAO extends GenericDAO {
 
         String sql = "SELECT * FROM recupera_corridas(?, ?, ?)";
 
-
         try {
             // Conectando no banco e realizando consulta
 
@@ -51,7 +50,7 @@ public class CorridaDAO extends GenericDAO {
         return corridas;
     }
 
-    public Corrida getCorridaById(Integer id) {
+    public Corrida getCorridaById(Long id) {
         List<Corrida> corridas = new ArrayList<>();
         String sql = "SELECT * FROM get_corridas_por_id(?)";
 
@@ -60,7 +59,7 @@ public class CorridaDAO extends GenericDAO {
 
             Connection conn = this.getConnection();
             PreparedStatement statementCorridas = conn.prepareStatement(sql);
-            statementCorridas.setInt(1, id);
+            statementCorridas.setLong(1, id);
 
             ResultSet resultSet = statementCorridas.executeQuery();
 
