@@ -58,7 +58,6 @@ public class User {
 
     public Long getId() {
         return id;
-
     }
 
 }
