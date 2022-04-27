@@ -64,11 +64,13 @@ CREATE TABLE MotoristaHabilitado(
 	PRIMARY KEY(cpf, chassi),
 	FOREIGN KEY(cpf, chassi) REFERENCES MotoristaAcessaVeiculo(cpf, chassi)
 );
+
 CREATE TABLE Passageiro(
 	cpf CHAR(11),
 	PRIMARY KEY (cpf),
 	FOREIGN KEY (cpf) REFERENCES Fisica(cpf)
 );
+
 CREATE TABLE Juridica(
 	cnpj CHAR(14),
 	setor VARCHAR(30),

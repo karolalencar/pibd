@@ -41,7 +41,7 @@
 					<c:if test="${requestScope.corridas != 'NULL' }">
 						<c:forEach var="corrida" items="${requestScope.corridas}">
 								<tr>
-									<td><a href="/motoristas/apresentaDetalhamentoCorrida/">${corrida.id}</a></td>
+									<td><a href="/<%=contextPath%>/motoristas/apresentaCorridaDetalhe?id=<c:out value='${corrida.id}'/>">${corrida.id}</a></td>
 									<td>${corrida.valor * 0.6}</td>
 									
 									<td>${corrida.valor}</td>
