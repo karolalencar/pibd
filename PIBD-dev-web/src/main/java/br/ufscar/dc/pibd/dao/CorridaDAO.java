@@ -13,7 +13,6 @@ public class CorridaDAO extends GenericDAO{
     
     public List<Corrida> getAllCorridasByMotoristaMesEAno(String cpfMotorista, Integer ano, Integer mes) {
         List<Corrida> corridas = new ArrayList<>();
-        System.out.print("CPF:"+ cpfMotorista+"\n mes:"+mes+"\nano:"+ano);
         String sql= "SELECT * FROM recupera_corridas(?, ?, ?)";
 
         try {
@@ -33,7 +32,6 @@ public class CorridaDAO extends GenericDAO{
                 Integer id = resultSet.getInt("id_corrida");
                 LocalDate iniciaAs = LocalDate.parse(resultSet.getDate("data_inicio").toString());
                 LocalDate terminaAs = LocalDate.parse(resultSet.getDate("data_fim").toString());
-                System.out.print("id = "+ id);
                 Corrida corrida = new Corrida( id, valor, iniciaAs, terminaAs);
                 corridas.add(corrida);
 

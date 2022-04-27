@@ -50,7 +50,6 @@ public class MotoristaController  extends HttpServlet{
                     break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
-            System.out.print("cheguei no exception");
             throw new ServletException(e);
         }
 
@@ -60,24 +59,33 @@ public class MotoristaController  extends HttpServlet{
 
         User userLogged = (User) request.getSession().getAttribute("usuarioLogado");
         Motorista motoristaFisica = dao.getFisicaFromMotById(userLogged.getId()); // Recupera a pessoa fisica de motorista
-        Integer year = (Integer) request.getAttribute("year");
-        Integer month = (Integer) request.getAttribute("mes");
+        
+        String mesAno = request.getParameter("monthYear");
+        Integer year = null;
+        Integer month = null;
         List<Corrida> corridas = new ArrayList<>();
         Double totalRecebido = 0.0;
         Integer corridasTotais = 0;
 
+        if(mesAno!=null){
+            String []yearMonth = mesAno.split("-");
+            year = Integer.parseInt(yearMonth[0]);
+            month = Integer.parseInt(yearMonth[1]);
+        }
+
         if(year == null){
             year = Calendar.getInstance().get(Calendar.YEAR);
+  
         }
         if(month == null){
-            month = Calendar.getInstance().get(Calendar.MONTH);
+            month = Calendar.getInstance().get(Calendar.MONTH); 
+            month = month + 1;  
         }
-        //System.out.print("cpf="+motoristaFisica.getCpf()+"\nano="+year+"\nmes="+month);
+
         corridas = daoCorrida.getAllCorridasByMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
         totalRecebido = dao.totalValorMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
         corridasTotais = dao.totalCorridasMotoristaMesEAno(motoristaFisica.getCpf(), year, month);
 
-        //System.out.print("totalRecebido: "+ totalRecebido +"\nCorridas Totais: "+ corridasTotais);
         request.setAttribute("corridas", corridas);
         request.setAttribute("totalRecebido", totalRecebido);
         request.setAttribute("corridasTotais", corridasTotais);
