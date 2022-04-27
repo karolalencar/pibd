@@ -154,7 +154,7 @@ CREATE OR REPLACE FUNCTION get_corridas_por_id(id_ integer)
 
 create or replace view locais as select * from local
 
-CREATE OR REPLACE FUNCTION get_passageiros_e_locais_por_agendamento(id_ integer)
+CREATE OR REPLACE FUNCTION get_passageiros_e_locais_por_agendamento(id_ BIGINT)
   RETURNS setof PassageiroAutorizadoViajaEmAgendamentoPorLocal AS
   $BODY$
       BEGIN
